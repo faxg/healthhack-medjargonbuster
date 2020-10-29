@@ -1,7 +1,7 @@
 {
-  "name": "makeathon2020fhnw",
+  "name": "healthhack-medjargonbuster",
   "version": "1.0.0",
-  "description": "Static Web App for MAKEathon 2020",
+  "description": "Static Web App for for Healthhack",
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w",
@@ -27,5 +27,5 @@
     "svelte-routing": "^1.4.0"
   },
   "author": "",
-  "license": "TBD"
+  "license": "MIT"
 }

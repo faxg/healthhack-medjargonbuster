@@ -9,6 +9,7 @@ https://2020.healthhack.solutions/project/9
 ## Prototype Solution Overview
 We will use Azure Static Web Apps (SWA), Azure Functions and several Azure Cognitive Services.
 
+![Architecture Overview](docs/overview.png)
 
 ## Prerequisites
 

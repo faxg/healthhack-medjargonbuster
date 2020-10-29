@@ -22,7 +22,7 @@
         <ProfileCard {userInfo} />
     </div>
     <div class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
-        <QRCard type="builder" />
+        Your Profile here
     </div>
 
 </div>
