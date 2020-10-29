@@ -1,11 +1,13 @@
 # DayOne HealthHack - Med Jargon Buster Challenge
 This is a proposal for solving the "Med Jargon Buster" Challenge:
+https://2020.healthhack.solutions/project/9
 
-User Story: 
+
+## User Story: 
 **"As a breast cancer patient I want to have a "translator" so that I can understand the medical terms.** 
 
+## Prototype Solution Overview
 We will use Azure Static Web Apps (SWA), Azure Functions and several Azure Cognitive Services.
-
 
 
 ## Prerequisites
