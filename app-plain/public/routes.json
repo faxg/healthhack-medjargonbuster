@@ -1,0 +1,42 @@
+{
+    "routes": [
+      {
+        "route": "/logout",
+        "serve": "/.auth/logout"
+      },
+      {
+        "route": "/admin/*",
+        "allowedRoles": ["administrator"]
+      },
+      {
+        "route": "/api/*",
+        "allowedRoles": ["authenticated"]
+      },
+      {
+        "route": "/customers/demo_customer",
+        "allowedRoles": ["authenticated", "demo_customer"]
+      },
+      {
+        "route": "/*",
+        "serve": "/index.html",
+        "statusCode": 200
+      }
+    ],
+    "platformErrorOverrides": [
+      {
+        "errorType": "NotFound",
+        "serve": "/404-not-found"
+      },
+      {
+        "errorType": "Unauthenticated",
+        "statusCode": "302",
+        "serve": "/login"
+      }
+    ],
+    "defaultHeaders": {
+      "content-security-policy": "default-src https: 'unsafe-eval' 'unsafe-inline'; object-src 'none'"
+    },
+    "mimeTypes": {
+        "custom": "text/html"
+    }
+  }
