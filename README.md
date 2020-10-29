@@ -1,29 +1,10 @@
-# MAKEathon 2020 Starter Template
+# DayOne HealthHack - Med Jargon Buster Challenge
+This is a proposal for solving the "Med Jargon Buster" Challenge:
 
-This is the Microsoft Azure Hackathon Starter for the MAKEathon 2020.
-see https://www.fhnw.ch/plattformen/makeathon/
+User Story: 
+**"As a breast cancer patient I want to have a "translator" so that I can understand the medical terms.** 
 
-
-## What is this ?
-
-This is an Azure Static Web App (SWA). 
-See https://aka.ms/staticwebapps for details.
-
-
-The web app contains links, docs, examples and other material for teams to get started quickly with the Hackathon challenges.
-
-A running version of this here: https://aka.ms/MAKEathon2020
-
-
-
-
-## How do I use this Template for my own App?
-
-1. Fork this repo on GitHub. It's a Template repository, so just click the green 
-[![Use this Template button](https://github.com/faxg/MAKEathon2020FHNW/raw/master/app/public/img/use-this-template.png)](https://aka.ms/MAKEathon2020/generate) button
-
-2. Go to your new repository and then: 
-[![Deploy to Azure button](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/?feature.customportal=false#create/Microsoft.StaticApp)
+We will use Azure Static Web Apps (SWA), Azure Functions and several Azure Cognitive Services.
 
 
 
