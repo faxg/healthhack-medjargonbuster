@@ -1,23 +1,39 @@
-var storage = require('azure-storage');
+//var storage = require('azure-storage');
+//var getStream = require('into-stream');
+const multipart = require("parse-multipart");
 
-var blobService = azure.createBlobService();
-blobService.createContainerIfNotExists('fileupload', {
-  publicAccessLevel: 'blob'
-}, function(error, result, response) {
-  if (!error) {
-    // if result = true, container was created.
-    // if result = false, container already existed.
-  }
-});
+
+
 
 module.exports = async function (context, req) {
-    context.log('File Upload triggered', req.headers);
+   
+  try {
 
+    if (req.body) {
+      const bodyBuffer = Buffer.from(req.body);
 
-    const responseMessage = "OK";
+      const boundary = multipart.getBoundary(req.headers["content-type"]);
+      const parts = multipart.Parse(bodyBuffer, boundary);
 
-    context.res = {
-        // status: 200, /* Defaults to 200 */
-        body: responseMessage
-    };
+      
+      context.bindings.storage = parts[0].data;
+      context.done();
+    } else {
+      return endWithBadResponse(context, `Request Body is not defined`);
+    }
+  } catch (err) {
+    context.log.error(err.message);
+    throw err;
+  }
+
+};
+
+function endWithBadResponse(context, message = "Bad Request") {
+  context.log.error(message);
+  context.bindings.response = {
+    status: 400,
+    body: message,
+  };
+  context.done();
 }
+
