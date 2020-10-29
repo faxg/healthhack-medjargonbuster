@@ -23,7 +23,7 @@
   <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
       <!-- The top navbar -->
-      <TopBar {userInfo} brandName="Azure Starter 2020"/>
+      <TopBar {userInfo} brandName="Med Jargon Buster"/>
 
       <!-- Content area -->
       <div class="container-fluid h-100">
