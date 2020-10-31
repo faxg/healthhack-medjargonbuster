@@ -6,7 +6,7 @@ const multipart = require("parse-multipart");
 
 
 module.exports = async function (context, req) {
-   
+  context.log ('Triggered file upload...');
   try {
 
     if (req.body) {

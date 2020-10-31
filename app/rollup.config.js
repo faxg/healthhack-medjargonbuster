@@ -5,6 +5,9 @@ import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import postcss from 'rollup-plugin-postcss';
 import replace from '@rollup/plugin-replace';
+import babel from "@rollup/plugin-babel";
+
+
 
 // determine if we run in "production" (e.g. not  locally)
 const production = !process.env.ROLLUP_WATCH; 
@@ -50,6 +53,9 @@ export default {
     resolve({
       browser: true,
       dedupe: ['svelte'],
+    }),
+    babel ({
+      exclude: "node_modules/**"
     }),
     commonjs(),
 

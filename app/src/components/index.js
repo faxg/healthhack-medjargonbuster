@@ -5,6 +5,8 @@ import InfoCard from './InfoCard.svelte'
 import QRCard from './QRCard.svelte'
 import EmbeddedVideo  from './EmbeddedVideo.svelte';
 import UploadFile from './UploadFile.svelte';
+import Particles from './Particles.svelte';
+
 
 export {
     TopBar,
@@ -13,5 +15,6 @@ export {
     InfoCard,
     QRCard,
     EmbeddedVideo,
-    UploadFile
+    UploadFile,
+    Particles
 }
