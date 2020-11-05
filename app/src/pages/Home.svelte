@@ -9,21 +9,25 @@
 
   let Intro = {
     icon: "fa-search",
-    smallTitle: "HealthHack 2020",
-    bigTitle: "Welcome",
+    smallTitle: "Welcome",
+    bigTitle: "A contribution to the DayOne HealthHack 2020 'Jargon Buster' challenge",
     border: "success",
     links: [
       {
-        text: "Github Repository",
+        text: "Github Repository: Frontend",
         href: "https://github.com/faxg/healthhack-medjargonbuster",
+      },
+      {
+        text: "Github Repository: Backend",
+        href: "https://github.com/faxg/jargonbuster-backend",
       },
     ],
   };
 
   let Demo = {
-    icon: "fa-badge",
-    smallTitle: "Demo",
-    bigTitle: "Analyze a medical document. ",
+    icon: "fa-fire",
+    smallTitle: "About the Challenge",
+    bigTitle: "What can I do here?",
     border: "primary",
     links: [
       {
@@ -52,44 +56,40 @@
   .col-xl-4 {
     padding-top: 10px;
   }
+  .img-splash {
+    height: 300px
+  }
 </style>
 
 <div class="row">
-  <div class="col-sm-12 col-md-6 col-lg-4 col-xl-4 col-justify-content-center">
-    <InfoCard props={Intro}>
-      Welcome to
-      <b>Med Jargon Booster</b>
-      This is a prototype we built during the HealthHack 2020. 
-      <p>
-      See our
-      <a href="https://2020.healthhack.solutions/project/9">project page</a>
-      for more info.
-      </p>
+  {#if userInfo}
+    <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-justify-content-center">
+      <InfoCard props={Intro}>
+        <div class="col-3 offset-4">
+          <img class="img img-splash" src="/img/splash.png" alt="splash" />
+        </div>
+      </InfoCard>
+    </div>
+  {/if}
 
-      <Video src="https://www.youtube.com/embed/rBbk7ONsKF4" 
-            title="Learn more about using AI to mine unstructured research papers to fight COVID-19."
-            />
-
-
-    </InfoCard>
-  </div>
-  <div class="col-sm-12 col-md-6 col-lg-8 col-xl-8 col-justify-content-center">
+  <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-justify-content-center">
     <InfoCard props={Demo}>
-      We'll try to analyze it and provide you with some insights.
+        The amount of medical information available to patients can be overwhelming and intimidating. 
+        Most patients also struggle to understand the medical jargon in clinical reports, research papers and in conversations with healthcare professionals.
+        <p/>
+        This project uses a combination of Open Source software and Microsoft Azure Cognitive Services to empower patients to better understand medical jargon.
+        Currently we provide the following features:
+        <p/>
 
-      <p>
-        {#if !userInfo}
-          Please log in first.
-          <p>
-            <img class="img-responsive w-100" src="https://techcommunity.microsoft.com/t5/image/serverpage/image-id/203807i113493AE6DF87BE6/" alt="Overview"/>
-          </p>
-        {:else}
-          <UploadFile>
+        <ul>
+            <li>Automatic summarization of medical documents, reports or audio transcipts</li>
+            <li>Extraction of key concepts, entities and relationships from the medical text</li>
+            <li>Providing definitions for medical jargon via Merriam-Webster medical dictionary</li>
+            <li>Integrated reader experience, supporting patients with reading diffculties.</li>
+            <li>Automatic translation into many languages, including Text-to-Speech</li>
+        </ul>
 
-          </UploadFile>
-          Thanks for logging in
-        {/if}
-      </p>
+
     </InfoCard>
   </div>
 </div>

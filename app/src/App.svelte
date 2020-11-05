@@ -2,7 +2,7 @@
   import { onMount } from 'svelte';
   import { Router, Link, Route } from "svelte-routing";
 
-  import { Home, Redirect, PageNotFound, Login, Profile } from "./pages";
+  import { Home, Redirect, PageNotFound, Login, Profile, Start, Upload, Results } from "./pages";
   import { TopBar, Footer } from "./components";
 
   import { getUserInfo } from "./utils/auth-utils.js"
@@ -23,7 +23,7 @@
   <div class="d-flex flex-column" id="content-wrapper">
     <div id="content">
       <!-- The top navbar -->
-      <TopBar {userInfo} brandName="Med Jargon Buster"/>
+      <TopBar {userInfo} brandName="Medical Jargon Buster"/>
 
       <!-- Content area -->
       <div class="container-fluid h-100">
@@ -35,6 +35,11 @@
 
         <Route path="/login" component={Login} />
         <Route path="/profile" component={Profile} {userInfo} />
+
+        <Route path="/start" component={Start} {userInfo} />
+        <Route path="/upload" component={Upload} {userInfo} />
+
+        <Route path="/results" component={Results} {userInfo} />
 
         <Route path="/404-not-found" component={PageNotFound} />
         <Route path="**" component={PageNotFound} />
