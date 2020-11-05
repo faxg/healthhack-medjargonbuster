@@ -38,7 +38,7 @@
     function createSummary (){
         jquery.ajax({
             type: "POST",
-            url: "http://jargonbusterbackend.azurewebsites.net/api/summarize",
+            url: "https://jargonbusterbackend.azurewebsites.net/api/summarize",
             data: JSON.stringify ({"text": text}),
             contentType:"application/json; charset=utf-8",
             dataType:"json",
@@ -48,7 +48,7 @@
 
     async function initDropzone() {
         var myDropzone = new Dropzone("#document-dropzone", {
-            url: "http://jargonbusterbackend.azurewebsites.net/api/extract",
+            url: "https://jargonbusterbackend.azurewebsites.net/api/extract",
             success: onUploadSuccess,
             uploadprogress: onUploadProgress
         });
@@ -66,7 +66,7 @@
     function getTokenAndSubdomainAsync() {
         return new Promise(function (resolve, reject) {
             jquery.ajax({
-                url: "http://jargonbusterbackend.azurewebsites.net/api/getIRToken",
+                url: "https://jargonbusterbackend.azurewebsites.net/api/getIRToken",
                 type: "GET",
                 success: function (data) {
                     if (data.error) {
