@@ -45,8 +45,6 @@
         <Route path="**" component={PageNotFound} />
       </div>
 
-      <!-- Footer -->
-      <Footer />
     </div>
   </div>
 </Router>

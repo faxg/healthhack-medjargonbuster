@@ -57,20 +57,26 @@
     padding-top: 10px;
   }
   .img-splash {
-    height: 300px
+    height: 300px;
+    width: auto;
   }
 </style>
 
 <div class="row">
-  {#if userInfo}
     <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-justify-content-center">
       <InfoCard props={Intro}>
-        <div class="col-3 offset-4">
-          <img class="img img-splash" src="/img/splash.png" alt="splash" />
+        <div class="col-12 center-block text-center">
+          <img class="img img-responsive img-splash" src="/img/splash.png" alt="splash" />
+          <p />
+          {#if userInfo}
+            <a href="/start" class="btn btn-large btn-success">START HERE</a>
+          {:else}
+            <a href="/login" class="btn btn-large btn-warning">Please login first</a>
+          {/if}      
         </div>
+
       </InfoCard>
     </div>
-  {/if}
 
   <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 col-justify-content-center">
     <InfoCard props={Demo}>
