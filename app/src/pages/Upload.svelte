@@ -10,12 +10,18 @@
 
     $: text = undefined;
     $: summarizedText = undefined;
-    $: summarizedHTML = undefined;
+    $: summarizedHTML = "<h4>Please wait...</h4>";
     $: documentClassification = "Research report";
 
     $: docTitle = "Summary";
     $: docMetadata = "Authors: John doe et al. (c) the internet, 2020<br>Pages: 10<br>Words: 3721"
     $: dictionaryResult = undefined;
+
+    $: analyticsResult = undefined 
+    $: firstDiagnosis = "(first diagnosis)"
+    $: firstExamination = "(first examination)"
+    $: firstTreatment = "(first treatment)"
+
 
     // Learn more about options 
     // https://docs.microsoft.com/azure/cognitive-services/immersive-reader/reference#options
@@ -24,7 +30,8 @@
         uiZIndex: 2000,
     }
 
-
+    // shows the tooltip containing the dictionary response.
+    // (e.g. next to the Avatar image)
     function showDictionaryTooltip(term, content) {
         var positionTarget = "#avatar";
 
@@ -43,6 +50,29 @@
         tooltip.show();
     }
 
+    function createInfoHTML(info) {
+        var html = "";
+        info.Author
+        info.Creator 
+        info.Subject
+        info.Title 
+
+        html = '<b>Author:</b> ' + info.Author + '<br>';
+        html = html+'<b>Creator:</b> ' + info.Creator + '<br>';
+        html = html+'<b>Subject:</b> ' + info.Subject + '<br>';
+        html = html+'<b>Title:</b> ' + info.Title + '<br>';
+        html = html+'<b>doi:</b> ' + info.doi + '<br>';
+
+        docTitle = info.Title;
+
+        return html;
+
+    }
+
+    //
+    // Dropzone.js handles file upload
+    //
+
     Dropzone.autoDiscover = false;
 
     function onUploadProgress(file, percent, bytesSend) {
@@ -52,21 +82,63 @@
     function onUploadSuccess(file, response) {
         console.log("Document successfully uploaded", file, response);
         text = response.text;
+        docMetadata = createInfoHTML(response.info);
+        console.log (docMetadata);
+
         docTitle = file.name; // # TODO should be extracted by API instead
         state = "summarizing";
 
         // Trigger summary creation
         createSummary();
+
+
     }
+
     function onSummarySuccess(data, status, jqXHR) {
         console.log("Created summary", data);
         summarizedText = data.text;
         summarizedHTML = data.html;
+
+        // Health Analytics for Summary
+        analyzeSummary(data.html);
+
         state = "done";
     }
 
+    function onAnalyzeSuccess(data, status, jqXHR) {
+        console.log("Created analytics", data);
+        analyticsResult = data;
+        console.log (analyticsResult);
+
+        var diags = []; //analyticsResult;
+        var examinations = []; //analyticsResult;
+        var treatments = []; // analyticsResult;
+
+        for (const i in analyticsResult) {
+            var item = analyticsResult[i];
+
+            if (item['category'] == 'Diagnosis'){
+                diags.push (item);
+            }
+            if (item['category'] == 'ExaminationName'){
+                examinations.push (item);
+            }
+            if (item['category'] == 'TreatmentName'){
+                treatments.push (item);
+            }
+        }
+
+        firstDiagnosis = diags[0]['text']
+        firstExamination = examinations[0]['text']
+        firstTreatment = treatments[0]['text']
+
+        state = "done";
+    }
+
+
     /**
      * Gets the currently selected text (for dictonary lookup)
+     * TODO: check how we can do this on touch devices
      */
     function getSelectedText() {
         if (window.getSelection) {
@@ -105,6 +177,24 @@
             dictionaryResult = "Please select a medical term in the text";
             showDictionaryTooltip('',dictionaryResult);
         }
+    }
+
+    function analyzeSummary(summary) {
+        var data = JSON.stringify({ text: "", summary: [summary] });
+        console.log (data);
+
+        jquery.ajax({
+            type: "POST",
+            url: "https://jargonbusterbackend.azurewebsites.net/api/analyze",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: onAnalyzeSuccess,
+            error: function (err) {
+                console.log (err)
+                
+            },
+        });
     }
 
     function createSummary() {
@@ -196,6 +286,13 @@
 </script>
 
 <style>
+    .no-overflow {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        width: 100%;
+        display: block;
+    }
     .col {
         padding-top: 20px;
     }
@@ -239,11 +336,11 @@
 {#if state == 'done'}
     <div class="row top-space">
         <div class="col-8">
-            <h3>{docTitle}</h3>
+            <h3 class="no-overflow">{docTitle}</h3>
             This looks like a <i class="big bg-success">{documentClassification}</i>
             <br />
-            The key topics of the document are <i class="bg-primary">_____</i>, 
-            <i class="bg-warning">_____</i> and <i class="bg-info">____</i>
+            The key topics of the document are <i class="bg-success"><b>{firstDiagnosis}</b></i>, 
+            <i class="bg-warning"><b>{firstExamination}</b></i> and <i class="bg-info"><b>{firstTreatment}</b></i>
         </div>
         <div class="col-4">
             <div class="row">
